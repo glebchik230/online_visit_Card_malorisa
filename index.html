@@ -5,16 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Онлайн визитка</title>
 
+  <!-- ================= СТИЛИ ================= -->
   <style>
+    /* ===== ОСНОВНЫЕ ЦВЕТА (МЕНЯЕШЬ ТУТ) ===== */
     :root {
-      --bg-color: #0f172a;
-      --card-color: #111827;
-      --accent-color: #C0C0C0;
-      --accent-hover: #808080;
-      --text-color: #f9fafb;
-      --muted-text: #9ca3af;
+      --bg-color: #0f172a;           /* фон страницы */
+      --card-color: #111827;         /* фон карточки */
+      --accent-color: #C0C0C0;       /* основной акцент (кнопки) */
+      --accent-hover: #696969;       /* цвет кнопок при наведении */
+      --text-color: #f9fafb;         /* основной текст */
+      --muted-text: #9ca3af;         /* вторичный текст */
     }
 
+    /* ===== СБРОС СТИЛЕЙ ===== */
     * {
       margin: 0;
       padding: 0;
@@ -29,8 +32,16 @@
       align-items: center;
       justify-content: center;
       color: var(--text-color);
+      animation: fadeIn 1s ease;
     }
 
+    /* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== КАРТОЧКА ВИЗИТКИ ===== */
     .card {
       width: 100%;
       max-width: 420px;
@@ -38,8 +49,16 @@
       border-radius: 20px;
       padding: 30px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      animation: cardFloat 6s ease-in-out infinite;
     }
 
+    /* Плавное "плавание" карточки */
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ===== АВАТАР / КАРТИНКА ===== */
     .avatar {
       width: 120px;
       height: 120px;
@@ -55,6 +74,7 @@
       object-fit: cover;
     }
 
+    /* ===== ЗАГОЛОВКИ ===== */
     h1 {
       text-align: center;
       margin-bottom: 8px;
@@ -68,7 +88,7 @@
       font-size: 14px;
     }
 
-    /* ===== ПРОМОКОД С КОПИРОВАНИЕМ ===== */
+    /* ===== ПРОМОКОДЫ ===== */
     .promo {
       background: rgba(236,72,153,0.1);
       border: 1px dashed var(--accent-color);
@@ -76,7 +96,6 @@
       padding: 15px;
       margin-bottom: 25px;
       text-align: center;
-      cursor: pointer;
     }
 
     .promo strong {
@@ -86,14 +105,10 @@
       color: var(--accent-color);
     }
 
-    .promo span {
-      font-size: 12px;
-      color: var(--muted-text);
-    }
-
+    /* ===== КНОПКИ ===== */
     .buttons {
       display: flex;
-      flex-direction: column;
+      flex-direction: column; /* меняй на row если нужны кнопки в линию */
       gap: 14px;
     }
 
@@ -106,58 +121,76 @@
       background: var(--accent-color);
       color: #fff;
       font-weight: bold;
-      transition: 0.3s;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
+    /* АНИМАЦИЯ НАВЕДЕНИЯ */
     .btn:hover {
       background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(236,72,153,0.4);
     }
 
+    /* ЭФФЕКТ ВОЛНЫ */
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn:hover::after {
+      opacity: 1;
+    }
+
+    /* ===== НИЖНИЙ ТЕКСТ ===== */
     .footer {
       margin-top: 25px;
       text-align: center;
       font-size: 12px;
       color: var(--muted-text);
     }
+
   </style>
 </head>
 <body>
 
+  <!-- ================= ОСНОВНАЯ КАРТОЧКА ================= -->
   <div class="card">
 
+    <!-- АВАТАР (МЕНЯЕШЬ КАРТИНКУ) -->
     <div class="avatar">
       <img src="avatar.jpg" alt="Аватар">
     </div>
 
+    <!-- ИМЯ / НАЗВАНИЕ -->
     <h1>МалоРиса</h1>
     <p class="subtitle">Премиальная доставка еды</p>
 
-    <!-- 🔗 ПРОМОКОД (КЛИКАБЕЛЬНЫЙ) -->
-    <div class="promo" onclick="copyPromo()">
-      <strong id="promoCode">ПРОМОКОД: ВИЗИТКА</strong>
-      <span>Нажмите, чтобы скопировать</span>
+    <!-- ПРОМОКОДЫ -->
+    <div class="promo">
+      <strong>ПРОМОКОД: ВИЗИТКА</strong>
+      Скидка 10% на любую пиццу 30 см
     </div>
 
+    <!-- КНОПКИ ССЫЛОК -->
     <div class="buttons">
+      <!-- КОПИРУЕШЬ ЭТУ СТРОКУ ЧТОБЫ ДОБАВИТЬ КНОПКУ -->
       <a class="btn" href="https://malorisa.ru" target="_blank">🌐 Основной сайт</a>
-      <a class="btn" href="https://malorisa.ru/tumen/mobile_app_link" target="_blank">📱 Скачать приложение</a>
-      <a class="btn" href="https://vk.com/malorisa?from=groups" target="_blank">💬 Наше сообщество ВК</a>
+      <a class="btn" href="https://malorisa.ru/tumen/mobile_app_link" target="_blank">Скачать Наше приложение</a>
+      <a class="btn" href="https://vk.com/malorisa?from=groups" target="_blank">Наше сообщество ВК</a>
     </div>
 
+    <!-- НИЖНИЙ ТЕКСТ -->
     <div class="footer">
       © 2025 • Онлайн визитка
     </div>
 
   </div>
-
-  <!-- 🔗 СКРИПТ КОПИРОВАНИЯ -->
-  <script>
-    function copyPromo() {
-      const text = document.getElementById('promoCode').innerText;
-      navigator.clipboard.writeText(text);
-      alert('Промокод скопирован!');
-    }
-  </script>
 
 </body>
 </html>
